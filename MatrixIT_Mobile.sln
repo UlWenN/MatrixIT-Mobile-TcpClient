@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37411.7 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixIT_Mobile", "MatrixIT_Mobile\MatrixIT_Mobile.csproj", "{7568176D-A3D7-4D66-A176-C729EB23CE46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7568176D-A3D7-4D66-A176-C729EB23CE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7568176D-A3D7-4D66-A176-C729EB23CE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7568176D-A3D7-4D66-A176-C729EB23CE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7568176D-A3D7-4D66-A176-C729EB23CE46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A681486-7A28-495B-8BF5-E7D26D6EA38E}
+	EndGlobalSection
+EndGlobal

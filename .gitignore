@@ -1,0 +1,29 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+
+# .NET
+artifacts/
+TestResults/
+
+# Android packages
+*.apk
+*.aab
+
+# Signing keys — никогда не загружать
+*.keystore
+*.jks
+
+# OS files
+.DS_Store
+Thumbs.db

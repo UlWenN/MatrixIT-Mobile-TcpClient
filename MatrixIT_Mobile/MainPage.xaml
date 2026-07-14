@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="MatrixIT_Mobile.MainPage"
+    x:DataType="local:TerminalViewModel"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MatrixIT_Mobile"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#F5F5F5">
+
+    <ContentPage.Resources>
+
+        <Style TargetType="Entry">
+            <Setter
+                Property="TextColor"
+                Value="#222222" />
+
+            <Setter
+                Property="PlaceholderColor"
+                Value="#808080" />
+
+            <Setter
+                Property="BackgroundColor"
+                Value="White" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter
+                Property="TextColor"
+                Value="White" />
+
+            <Setter
+                Property="CornerRadius"
+                Value="8" />
+
+            <Setter
+                Property="HeightRequest"
+                Value="46" />
+        </Style>
+
+    </ContentPage.Resources>
+
+    <Grid
+        Padding="20,18"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*"
+        RowSpacing="12">
+
+
+        <Label
+            Grid.Row="0"
+            Text="TCP-клиент"
+            FontAttributes="Bold"
+            FontSize="26"
+            HorizontalOptions="Center"
+            TextColor="#222222" />
+
+
+        <Border
+            Grid.Row="1"
+            Padding="10,8"
+            BackgroundColor="White"
+            Stroke="#D0D0D0"
+            StrokeShape="RoundRectangle 8">
+
+            <HorizontalStackLayout Spacing="8">
+
+                <Border
+                    WidthRequest="12"
+                    HeightRequest="12"
+                    VerticalOptions="Center"
+                    BackgroundColor="{Binding StatusColor}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 6" />
+
+                <Label
+                    Text="{Binding StatusText}"
+                    VerticalOptions="Center"
+                    TextColor="#333333" />
+
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    HeightRequest="20"
+                    WidthRequest="20" />
+
+            </HorizontalStackLayout>
+
+        </Border>
+
+
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="*,110"
+            ColumnSpacing="10">
+
+            <Entry
+                Grid.Column="0"
+                Text="{Binding IpAddress}"
+                IsEnabled="{Binding CanEditEndpoint}"
+                Placeholder="IP-адрес, например 192.168.1.10"
+                ClearButtonVisibility="WhileEditing"
+                ReturnType="Next" />
+
+            <Entry
+                Grid.Column="1"
+                Text="{Binding Port}"
+                IsEnabled="{Binding CanEditEndpoint}"
+                Placeholder="Порт"
+                Keyboard="Numeric"
+                MaxLength="5"
+                ClearButtonVisibility="WhileEditing"
+                ReturnType="Done" />
+
+        </Grid>
+
+        <!-- ошибка валидации -->
+
+        <Label
+            Grid.Row="3"
+            Text="{Binding ValidationMessage}"
+            IsVisible="{Binding HasValidationMessage}"
+            FontSize="13"
+            TextColor="#B00020" />
+
+
+        <Grid
+            Grid.Row="4"
+            ColumnDefinitions="*,*"
+            ColumnSpacing="10">
+
+            <Button
+                Grid.Column="0"
+                Text="Подключиться"
+                Command="{Binding ConnectCommand}"
+                BackgroundColor="#512BD4" />
+
+            <Button
+                Grid.Column="1"
+                Text="Отключиться"
+                Command="{Binding DisconnectCommand}"
+                BackgroundColor="#C62828" />
+
+        </Grid>
+
+
+        <Grid
+            Grid.Row="5"
+            ColumnDefinitions="*,Auto"
+            ColumnSpacing="10">
+
+            <Entry
+                Grid.Column="0"
+                Text="{Binding MessageText}"
+                IsEnabled="{Binding IsConnected}"
+                Placeholder="Введите сообщение..."
+                ReturnType="Send"
+                ReturnCommand="{Binding SendCommand}"
+                ClearButtonVisibility="WhileEditing" />
+
+            <Button
+                Grid.Column="1"
+                Text="Отправить"
+                Command="{Binding SendCommand}"
+                BackgroundColor="#1976D2"
+                Padding="18,0" />
+
+        </Grid>
+
+
+        <Grid
+            Grid.Row="6"
+            ColumnDefinitions="*,Auto">
+
+            <Label
+                Grid.Column="0"
+                Text="История сообщений"
+                FontAttributes="Bold"
+                FontSize="17"
+                VerticalOptions="Center"
+                TextColor="#333333" />
+
+            <Button
+                Grid.Column="1"
+                Text="Очистить"
+                Command="{Binding ClearHistoryCommand}"
+                BackgroundColor="#616161"
+                HeightRequest="36"
+                Padding="14,0" />
+
+        </Grid>
+
+        <!-- История сообщений -->
+
+        <Border
+            Grid.Row="7"
+            Padding="8"
+            BackgroundColor="White"
+            Stroke="#C8C8C8"
+            StrokeShape="RoundRectangle 10">
+
+            <CollectionView
+                ItemsSource="{Binding Messages}"
+                ItemsUpdatingScrollMode="KeepLastItemInView"
+                SelectionMode="None">
+
+                <CollectionView.EmptyView>
+
+                    <Label
+                        Text="История пока пуста"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        TextColor="#808080" />
+
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="local:LogMessage">
+
+                        <Border
+                            Margin="2,4"
+                            Padding="10,8"
+                            MaximumWidthRequest="420"
+                            HorizontalOptions="Start"
+                            BackgroundColor="#E3F2FD"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Border.Triggers>
+
+                                <!-- Наши сообщения -->
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding IsSentByUs}"
+                                    Value="True">
+
+                                    <Setter
+                                        Property="HorizontalOptions"
+                                        Value="End" />
+
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="#E8F5E9" />
+
+                                </DataTrigger>
+
+                                <!-- Системные сообщения -->
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding IsSystem}"
+                                    Value="True">
+
+                                    <Setter
+                                        Property="HorizontalOptions"
+                                        Value="Fill" />
+
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="#FFF3CD" />
+
+                                </DataTrigger>
+
+                            </Border.Triggers>
+
+                            <Grid
+                                RowDefinitions="Auto,Auto"
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="12"
+                                RowSpacing="3">
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Text="{Binding Sender}"
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    TextColor="#444444" />
+
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Text="{Binding DisplayTime}"
+                                    FontSize="11"
+                                    TextColor="#777777" />
+
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Text="{Binding Text}"
+                                    LineBreakMode="WordWrap"
+                                    TextColor="#222222" />
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>
