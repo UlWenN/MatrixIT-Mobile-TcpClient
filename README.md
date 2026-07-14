@@ -34,7 +34,7 @@ MatrixIT Mobile TCP Client
 - MainPage.xaml — пользовательский интерфейс
 - MainPage.xaml.cs — только инициализация страницы
   
-##Скриншот приложения
+## Скриншот приложения
 ![Интерфейс TCP-клиента](docs/screenshot.png)
 
 Автор: Якорева Ульяна
