@@ -33,6 +33,9 @@ MatrixIT Mobile TCP Client
 - TerminalViewModel — состояние экрана, TCP и команды
 - MainPage.xaml — пользовательский интерфейс
 - MainPage.xaml.cs — только инициализация страницы
+  
+##Скриншот приложения
+![Интерфейс TCP-клиента](docs/screenshot.png)
 
 Автор: Якорева Ульяна
 
